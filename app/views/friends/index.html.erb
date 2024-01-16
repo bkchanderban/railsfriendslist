@@ -1,0 +1,65 @@
+<% if user_signed_in? %>
+<h1>List of All Your Friends</h1>
+
+<table class="table table-striped table-hover table-bordered table-dark">
+  <thead class = 'table-dark table-bordered'>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Twitter</th>
+      <!--<th>User ID</th>-->
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+      <% if user_signed_in? %>
+        <% @friends.where(user_id: current_user.id).each do |friend| %>
+          <tr>
+            <td><%= link_to friend.first_name + ' '+ friend.last_name , friend, style: 'color: white;'  %>
+            </td>
+            <td><%= friend.email %></td>
+            <td><%= friend.phone %></td>
+            <td><%= friend.twitter %></td>
+            <td class="text-center">
+            <%= button_to "Delete Friend", friend, method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm", onclick: "return confirm('Are you sure?');" %>
+
+
+
+            <!--<%= button_to "Delete Friend", friends_path(@friend), method: :delete, class: "btn btn-danger btn-sm", onclick: "return confirm('Are you sure?');" %>-->
+            </td>
+          </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "Add New Friend", new_friend_path, class: "btn btn-dark" %>
+
+<% else %>
+
+<h1>Hello There!</h1>
+Please Sign In (Or Up) To Access This Friends App :)
+
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
